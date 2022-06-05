@@ -47,12 +47,24 @@
 	</select>
 
 	<select id="SearchList" resultType="camp" parameterType="map">
-		select * from camp
+		select campname, campaddr,
+		room, campimg, payidx, content, nvl(chk, 'y')
+		from camp c , viewcamp v
+		<if test="searchType == 0">
+		where c.CAMPIDX=v.CAMPIDX(+) and nvl(chk, 'y') != 'n'
+		order by c.campidx
+		</if>
 		<if test="searchType == 1">
-			where campaddr like '%${searchName}%'
+			where c.CAMPIDX=v.CAMPIDX(+) and nvl(chk, 'y') != 'n'
+			and campaddr like '%${searchName}%'
 		</if>
 		<if test="searchType == 2">
-			where room like '%${searchName}%'
+			where c.CAMPIDX=v.CAMPIDX(+) and nvl(chk, 'y') != 'n'
+			and c.room like '%${searchName}%'
+		</if>
+		<if test="searchType == 3">
+			where c.CAMPIDX=v.CAMPIDX(+) and nvl(chk, 'y') != 'n'
+			and c.campname like '%${searchName}%'
 		</if>
 	</select>
 

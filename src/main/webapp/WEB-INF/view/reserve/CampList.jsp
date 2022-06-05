@@ -23,6 +23,7 @@
 								<option value="0"> 선택 </option>
 								<option value="1"> 주소 </option>
 								<option value="2"> 캠핑종류 </option>
+								<option value="3"> 캠프이름 </option>
 							</select>
 						</td>
 						<td>
