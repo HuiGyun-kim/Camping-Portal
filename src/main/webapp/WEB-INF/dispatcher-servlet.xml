@@ -117,25 +117,4 @@
 	</mvc:interceptors>
 
 
-<!-- 	<bean class="org.mybatis.spring.SqlSessionTemplate"> <constructor-arg 
-		ref="sqlSession"></constructor-arg> </bean> -->
-
-
-<!-- 	mybatis-config DB 연결
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-	<property name="driver" value="oracle.jdbc.driver.OracleDriver"/> 
-	<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
-	<property name="username" value="vision"/>
-	<property name="password" value="1111"/> 
-	</bean>
-
-	DB 연동?
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean"> 
-	<property name="configlocation" value="classpath:mybatis/mybatis-config.xml"> 
-	</property>
-	</bean>
- -->
-
-
-
 </beans>
