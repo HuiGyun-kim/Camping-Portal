@@ -28,9 +28,19 @@ function inputChk(f) {
 		f.password.focus()
 		return false;
 	}
+	if(f.password1.value==''){
+		alert("재확인 비밀번호를 입력하세요")
+		f.password1.focus()
+		return false;
+	}
 	if(f.name.value==''){
 		alert("이름을 입력하세요")
 		f.name.focus()
+		return false;
+	}
+	if(f.birthday.value==''){
+		alert("생일을 입력하세요")
+		f.birthday.focus()
 		return false;
 	}
 	if(f.gender.value==''){
