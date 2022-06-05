@@ -16,7 +16,7 @@ delete from reserve where reserveidx = #{reserveidx}
 
 <select id="ReserveList" resultType="reserve" parameterType="String">
 select  *  from  reserve  where  username = #{value}
-order by reserveidx desc
+order by checkin desc
 </select>
 
 <select id="nextIdx" resultType="int">

@@ -96,7 +96,6 @@ public class ReserveController {
 		String msg = "";
 		String url = "";
 		String name = rd.username(login);
-		
 		int idx = rd.ReserveDelete(reserveidx);
 			if (idx == 0) { //delete no
 				msg = name + "님의 예약취소시 오류 발생";
@@ -131,24 +130,23 @@ public class ReserveController {
 		String url = "";
 		String name = rd.username(login);
 		List<Reserve> li = rd.ReserveList(name);
-		
+		           
 		SimpleDateFormat  sf = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
 		String currdate = sf.format(date);
-		
-		m.addAttribute("li", li);
+ 		m.addAttribute("li", li);
 		m.addAttribute("currdate", currdate);
 		m.addAttribute("msg", msg);
 		m.addAttribute("url", url);
 		return "/view/reserve/ReserveList";
 	}
-	
+	   
 	@RequestMapping("CampList")
 	public String CampList() {
 		List<Camp> list = cd.CampList();
 		m.addAttribute("list", list);
 		return "/view/reserve/CampList";
-	}
+	}  
 
 	@RequestMapping("CampSearch")
 	public String CampSearch(String searchName, String searchType) {
