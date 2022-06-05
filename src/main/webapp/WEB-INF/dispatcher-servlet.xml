@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util-4.0.xsd ">
+
+	<mvc:annotation-driven /> <!-- mapping -->
+	<context:component-scan
+		base-package="controller, dao" />
+	<!--controller랑 service에 있는 거 scan -->
+	<context:annotation-config />
+	<mvc:view-controller path="/index"
+		view-name="index" />
+
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- <util:properties id="configProperties"	location="/WEB-INF/config/**.properties" /> -->
+	<util:properties id="configProperties"	location="classpath:config/config.properties" />
+	<!-- <context:property-placeholder location="/WEB-INF/config/**.properties" />  -->
+	
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="utf-8" />
+	</bean>
+
+	<bean id="javaMailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="#{configProperties['mail.username2']}" />
+		<property name="password" value="#{configProperties['mail.password2']}" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
+			</props>
+		</property>
+	</bean>
+
+	<mvc:resources mapping="/image/**" location="/image/"
+		cache-period="60" />
+	<mvc:resources mapping="/boardupload/**"
+		location="/boardupload/" cache-period="60" />
+	<mvc:resources mapping="/campupload/**"
+		location="/campupload/" cache-period="60" />
+	<mvc:resources mapping="/saleupload/**"
+		location="/saleupload/" cache-period="60" />
+	<mvc:resources mapping="/js/**" location="/js/"
+		cache-period="60" />
+	<!-- css적용하기 위함 -->
+	<mvc:resources mapping="/resouces/**"
+		location="/resouces/" cache-period="60" />
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/camp/CampInsert" />
+			<mvc:mapping path="/camp/CampManager" />
+			<mvc:mapping path="/camp/campUpdate" />
+			<mvc:mapping path="/camp/reserveManager" />
+
+			<mvc:mapping path="/board/list_admin" />
+
+			<mvc:mapping path="/userdata/userdataList" />
+			<mvc:mapping path="/userdata/blackList" />
+			<mvc:mapping path="/userdata/leaveList" />
+			<mvc:mapping path="/userdata/manager" />
+
+			<bean class="interceptor.AdminInterceptor" />
+
+
+		</mvc:interceptor>
+
+		<mvc:interceptor>
+			<mvc:mapping path="/reserve/ReserveInsert" />	<!-- 로그인인터셉터가 필요한 페이지 추가 -->
+			<mvc:mapping path="/reserve/ReserveList" />
+			<mvc:mapping path="/reserve/ReserveInfo" />
+
+			<mvc:mapping path="/board/boardWriteForm" />
+			<mvc:mapping path="/board/boardUpdateForm" />
+			<mvc:mapping path="/board/boardReviewDeleteForm" />
+			<mvc:mapping path="/board/boardDeleteForm" />
+			<mvc:mapping path="/board/boardReplyPro" />
+
+			<mvc:mapping path="/userdata/mypage" />
+			<mvc:mapping path="/userdata/userdataUpdate" />
+			<mvc:mapping path="/userdata/updateForm" />
+			<mvc:mapping path="/userdata/changePass*" />
+			<mvc:mapping path="/userdata/changePassPro" />
+			<mvc:mapping path="/userdata/deleteForm" />
+			<mvc:mapping path="/userdata/deleteUserdata" />
+			<mvc:mapping path="/userdata/myBoardList" />
+
+			<mvc:mapping path="/sale/saleWriteForm" />
+			<mvc:mapping path="/sale/saleWritePro" />
+			<mvc:mapping path="/sale/saleUpdateForm" />
+			<mvc:mapping path="/sale/saleUpdatePro" />
+			<mvc:mapping path="/sale/saleDeleteForm" />
+			<mvc:mapping path="/sale/saleDeletePro" />
+
+			<bean class="interceptor.LoginInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+
+<!-- 	<bean class="org.mybatis.spring.SqlSessionTemplate"> <constructor-arg 
+		ref="sqlSession"></constructor-arg> </bean> -->
+
+
+<!-- 	mybatis-config DB 연결
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	<property name="driver" value="oracle.jdbc.driver.OracleDriver"/> 
+	<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+	<property name="username" value="vision"/>
+	<property name="password" value="1111"/> 
+	</bean>
+
+	DB 연동?
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean"> 
+	<property name="configlocation" value="classpath:mybatis/mybatis-config.xml"> 
+	</property>
+	</bean>
+ -->
+
+
+
+</beans>

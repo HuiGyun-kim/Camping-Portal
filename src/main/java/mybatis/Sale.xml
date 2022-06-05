@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sale">
+
+<insert id="insertSale" parameterType="sale">
+	insert into sale values (#{saleidx}, '거래가능', #{writer}, #{password}, 
+		#{subject}, #{content}, #{price}, #{location}, #{image1}, #{image2},
+		'0', sysdate,'0')
+</insert>
+
+<select id="nextSaleidx" resultType="int">
+	select seqsale.nextval from dual
+</select>
+
+<select id="selectSaleList" resultType="sale">
+	select * from sale order by saleidx desc
+</select>
+
+<select id="selectCondition" resultType="sale">
+	select * from sale where condition = '거래가능'  order by saleidx desc
+</select>
+
+<select id="selectSaleOne" resultType="sale" parameterType="int">
+	select * from sale where saleidx = #{saleidx}
+</select>
+
+<update id="readCountUp" parameterType="int"> 
+	update sale set readcnt = readcnt + 1  where saleidx = #{saleidx}
+</update>
+
+<update id="updateSale" parameterType="sale"> 
+	update sale set subject = #{subject}, content = #{content}, 
+		price = #{price}, location = #{location}, 
+		image1 = #{image1}, image2 = #{image2}
+		where saleidx = #{saleidx}
+</update>
+
+<update id="deleteSale" parameterType="int">
+	delete sale where saleidx = #{saleidx}
+</update>
+
+<select id="selectCampList" resultType="String" >
+	select campname from camp 
+</select>
+
+<select id="mySaleList" resultType="sale" parameterType="String">
+	select * from sale where writer = #{writer} order by saleidx desc
+</select>
+
+<update id="changeCon" parameterType="map"> 
+	update sale set condition=#{condition} where saleidx = #{saleidx}
+</update>
+
+<select id="saleReplyList" resultType="salereply" parameterType="int">
+	select * from salereply where salenum = #{salenum}
+</select>
+
+<insert id="insertSaleReply" parameterType="salereply">
+	insert into salereply values (#{replyidx}, #{salenum}, #{content}, #{writer}, sysdate)
+</insert>
+
+<select id="nextReplyidx" resultType="int">
+	select seqsalereply.nextval from dual
+</select>
+
+<update id="deleteSaleReply" parameterType="int">
+	delete salereply where replyidx = #{replyidx}
+</update>
+
+
+
+</mapper>
