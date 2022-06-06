@@ -7,6 +7,9 @@
 <select id="selectUserdata" parameterType="string" resultType="userdata">
 	select * from userdata where userid = #{userid}
 </select>
+<select id="selectUserName" parameterType="string" resultType="userdata">
+	select * from userdata where name = #{name}
+</select>
 
 <select id="nextUseridx" resultType="int">
 	select sequser.nextval from dual

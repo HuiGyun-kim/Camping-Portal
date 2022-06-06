@@ -79,10 +79,20 @@ public class UserdataController {
 		}
 		UserData u = ud.selectUserdata(userid);
 		String chk = u==null?"false":"true"; /* 삼항연산자 */
-		m.addAttribute("chk", chk);
+	 	m.addAttribute("chk", chk);
 		return "/single/readId";
 	}
-	
+	@RequestMapping("readName")
+	public String readName(String name) {
+		if (name == null) {
+			name = "";
+		}
+		UserData u = ud.selectUserName(name);
+		String nickChk = u==null?"false":"true"; /* 삼항연산자 */
+		m.addAttribute("nickChk", nickChk);
+		return "/single/readName";
+	}
+	    
 
 	@RequestMapping("sendMail") 
 	@ResponseBody
@@ -290,10 +300,10 @@ public class UserdataController {
 			msg = "회원가입이 실패하였습니다.";
 			url = request.getContextPath() + "/board/main";
 		}}else {
-			msg = "8자리를 입력해주세요";
+			msg = "8자리 이상 입력해주세요";
 		}
 			 
-
+ 
 		m.addAttribute("msg", msg);
 		m.addAttribute("url", url);
 

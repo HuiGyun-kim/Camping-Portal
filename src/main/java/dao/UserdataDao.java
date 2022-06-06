@@ -57,6 +57,11 @@ public class UserdataDao {
 		return sqlSession.selectOne(ns + "selectUserdata", userid);
 
 	}
+	public UserData selectUserName(String name) {
+		
+		return sqlSession.selectOne(ns + "selectUserName", name);
+		
+	}
 
 	public List<Board> selectMyboard(String id) {
 

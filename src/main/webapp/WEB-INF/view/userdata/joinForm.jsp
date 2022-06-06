@@ -33,8 +33,14 @@ function inputChk(f) {
 		f.password1.focus()
 		return false;
 	}
+	let nameResult = document.querySelector("#nameResult")
 	if(f.name.value==''){
-		alert("이름을 입력하세요")
+		alert("닉네임을 입력하세요")
+		f.name.focus()
+		return false;
+	}
+	if(f.nickChk.value!='ok'){
+		alert(nameResult.innerHTML)
 		f.name.focus()
 		return false;
 	}
@@ -71,7 +77,6 @@ function inputChk(f) {
 	}else{
 		ajax("<%=request.getContextPath()%>/userdata/readId",param,callback,'get')
 		}
-	}
 	function callback() {
 		if(this.readyState ==4 && this.status ==200) {
 			let result = document.querySelector("#result")
@@ -84,10 +89,37 @@ function inputChk(f) {
 				result.style.color='red'
 				result.innerHTML="사용중인 ID입니다"
 				document.f.chk.value="no"
+			}		}	}	}
+
+	function nameChk(){
+	
+	const name = document.f.name.value
+	let nameResult = document.querySelector("#nameResult")  
+	const param ="name="+name
+	
+	if(name.length<=0){
+		nameResult.style.color='red'
+			nameResult.innerHTML='한자리 이상 입력하세요'
+	}else{
+		ajax("<%=request.getContextPath()%>/userdata/readName",param,callback,'get')
+		}
+	function callback() {
+		if(this.readyState ==4 && this.status ==200) {
+			let nameResult = document.querySelector("#nameResult")
+			let nickChk=this.responseText.trim();
+			if(nickChk=='false'){
+				nameResult.style.color='blue'
+					nameResult.innerHTML="사용가능한 닉네임입니다"
+				document.f.nickChk.value='ok'
+			} else {
+				nameResult.style.color='red'
+					nameResult.innerHTML="사용중인 닉네임입니다"
+				document.f.nickChk.value='no'
 			}
 		}
 	}
-
+	}
+	
 	 function passChk() {
 
 		if (f.password.value != f.password1.value) {
@@ -344,8 +376,10 @@ function inputChk(f) {
 
 		<div class="form-group row">
 			<div class="col">
-				<label>Name</label> <input type="text"
-					class="form-control inwidthfull" name="name">
+			<input type="hidden" name="nickChk">
+				<label>Nickname</label>
+				<input type="text"	class="form-control inwidthfull" name="name" onkeyup="nameChk()">
+					<span id="nameResult" class="form-text">닉네임을 입력하세요</span>
 			</div>
 			<div class="col">
 				<label>Birth</label> <input type="text"

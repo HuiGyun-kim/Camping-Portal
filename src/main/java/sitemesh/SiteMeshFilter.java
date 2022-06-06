@@ -24,6 +24,7 @@ public class SiteMeshFilter extends ConfigurableSiteMeshFilter{
 			.addExcludedPath("/camp/campUpdate")
 			.addExcludedPath("/camp/CampInsert")
 			.addExcludedPath("/userdata/readId")
+			.addExcludedPath("/userdata/readName")
 			.addExcludedPath("/userdata/searchUserForm")
 			.addExcludedPath("/userdata/searchUserList")
 			.addExcludedPath("/userdata/manager");
