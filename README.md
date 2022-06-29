@@ -3,7 +3,6 @@
 ### A camping portal site for campers who are new to camping or want to visit several campsites.
 #### Project synopsis : 이제 고민하지 말고 캠핑을 즐기자~!
 #### Project execution period : 2022.03.25~2022.05.13
-#### Project Hosting : [캠핑고고](https://www.hanium.or.kr/portal/index.do) 카페24 호스팅필요
 
 프로젝트 이름 : Now
 
